@@ -1,14 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Score Keeper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Score Keeper</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <style>
+        .is-winning {
+            background-color: #48c774;
+            color: white;
+        }
+        .is-losing {
+            background-color: #f14668;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        #game {
+            transition: background-color 0.5s ease;
+        }
+        .score-update {
+            transition: transform 0.2s ease;
+        }
+        .score-update:active {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
+
 <body>
-<h1> <span id="p1">0</span> to <span id="p2">0</span></h1>
-<button id="p1add">+1 player one</button>
-<button id="p2add">+1 player two</button>
-<button id="reset">Reset</button>
+<section class="section" id="game">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by1">
+                            <img src="https://images.unsplash.com/photo-1534158914592-062992fbe900?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3784&q=80" alt="">
+                        </figure>
+                    </div>
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Ping Pong Tournament Score Keeper
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <h1 class="title is-1"><span id="p1Display" class="score-update">0</span> to <span id="p2Display" class="score-update">0</span></h1>
+                            <p class="subtitle">Use the buttons below to keep score</p>
+                            <label for="playto" class="label is-large is-inline">Playing To</label>
+                            <div class="select is-rounded">
+                                <select name="" id="playto">
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                </select>
+                            </div>
+                            <div class="field mt-4">
+                                <label class="label">Game Timer (minutes)</label>
+                                <input id="timerInput" class="input" type="number" min="1" max="60" value="5">
+                                <button id="startTimer" class="button is-link mt-2">Start Timer</button>
+                                <p id="timerDisplay" class="title is-4 mt-4">5:00</p>
+                            </div>
+                            <div class="field mt-4">
+                                <label class="label">Player Names</label>
+                                <input id="p1NameInput" class="input mb-2" type="text" placeholder="Player One" value="Player One">
+                                <input id="p2NameInput" class="input" type="text" placeholder="Player Two" value="Player Two">
+                                <button id="updateNames" class="button is-info mt-2">Update Names</button>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <button id="p1Button" class="is-primary button card-footer-item is-large">+1 Player One</button>
+                        <button id="p2Button" class="is-info button card-footer-item is-large">+1 Player Two</button>
+                        <button id="reset" class="is-danger button card-footer-item is-large">Reset</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <div class="box mt-5">
+            <h2 class="title is-4">Leaderboard</h2>
+            <div id="leaderboard">
+                <p>No games played yet.</p>
+            </div>
+        </div>
+        <button id="generateReport" class="button is-primary mt-5">Generate Tournament Report</button>
+    </div>
+</section>
+
+<div id="winModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <p class="title" id="winMessage">Player X Wins!</p>
+            <button class="button is-success" id="closeModal">OK</button>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
 
 <script src="app.js"></script>
 </body>
